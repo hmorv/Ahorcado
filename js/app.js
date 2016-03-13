@@ -14,10 +14,15 @@
 // }
 class Partida
 {
+	//nombreJugador: "";
 	constructor(nombreJugador, intentos, frase) {
 		this._nombreJugador = nombreJugador;
 		this._intentos = intentos;
 		this._frase = frase;
+		/*this._frase[0] = frase;
+		for(var i = 0; i < this._frase.length; i++) {
+			this._frase[1] = false;
+		}*/
 	}
 	get nombre() {
 		return this._nombreJugador;
@@ -46,6 +51,16 @@ class Funcionalidades
 	TODO
 	El problema es que cada vez que coincide, se vuelve a actualizar la variable existe
 	*/
+	mostrarFraseOculta(p) {
+		var st = p.frase;
+		for(var i = 0; i < st.length; i++) {
+			if(st[i] == " ")
+				$(".frase").append(" &nbsp; ");
+			else
+				$(".frase").append(" _ ");
+		}
+
+	}
 	comprobarLetra(letra, frase) {
 		var existe = false;
 
@@ -72,6 +87,7 @@ class Funcionalidades
 			console.info(letra);
 		} while (letra == "" && letra.length != 1);
 		p.intentos--;
+		return letra;
 	}
 }
 $(document).ready(function() {
@@ -83,8 +99,11 @@ $(document).ready(function() {
 		console.log(p);
 
 		var letraActual = '';
+		f.mostrarFraseOculta(p);
 		do {
-			f.pedirLetra(p);
+			letraActual = f.pedirLetra(p);
+			f.comprobarLetra(letraActual, p.frase);
+			f.mostrarCoincidencias(p.frase);
 		} while (p.intentos > 0);
 
 	});
