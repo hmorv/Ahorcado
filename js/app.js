@@ -69,15 +69,15 @@ class Funcionalidades
 	pedirLetra(p) {
 		do {
 			var letra = window.prompt("Introduce una letra", "");
-
-		} while (letra == "");
+			console.info(letra);
+		} while (letra == "" && letra.length != 1);
 		p.intentos--;
 	}
 }
 $(document).ready(function() {
 
 	$("#iniciar").click(function() {
-			//inicializaciones
+		//inicializaciones
 		var p = new Partida('Hugo', 5, "La Guerra de las Galaxias");
 		var f = new Funcionalidades();
 		console.log(p);
