@@ -14,16 +14,30 @@
 // }
 class Partida
 {
+	
+
+
 	//nombreJugador: "";
 	constructor(nombreJugador, intentos, frase) {
+		function insertarFrase(f) {
+		var ff = f.split("");
+		var final = [];
+		for(var i = 0; i < ff.length; i++) {
+			final[i] = []
+			final[i][0] = ff[i];
+			final[i][1] = false;
+		}
+		return final;
+	}
 		this._nombreJugador = nombreJugador;
 		this._intentos = intentos;
-		this._frase = frase;
+		this._frase = insertarFrase(frase);
 		/*this._frase[0] = frase;
 		for(var i = 0; i < this._frase.length; i++) {
 			this._frase[1] = false;
 		}*/
 	}
+	
 	get nombre() {
 		return this._nombreJugador;
 	}
@@ -67,7 +81,7 @@ class Funcionalidades
 		for (var i = 0; i < frase.length; i++) {
 			if(frase[i][0] == letra) {
 				existe = true;
-				frase[i][1] == true; 
+				frase[i][1] = true; 
 			}
 		}
 		//mostrarCoincidencias
@@ -77,6 +91,7 @@ class Funcionalidades
 		for(var i = 0; i < frase.length; i++) {
 			if(frase[i][1] == true) {
 				//mostramos la letra
+				console.info(frase[i][0]);
 				
 			}
 		}
