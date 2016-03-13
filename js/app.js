@@ -40,8 +40,12 @@ class Partida
 	}
 }
 
-class Funcionalidades()
+class Funcionalidades
 {
+	/*
+	TODO
+	El problema es que cada vez que coincide, se vuelve a actualizar la variable existe
+	*/
 	comprobarLetra(letra, frase) {
 		var existe = false;
 
@@ -62,17 +66,27 @@ class Funcionalidades()
 			}
 		}
 	}
+	pedirLetra(p) {
+		do {
+			var letra = window.prompt("Introduce una letra", "");
+
+		} while (letra == "");
+		p.intentos--;
+	}
 }
 $(document).ready(function() {
 
-	//inicializaciones
-	var p = new Partida('Hugo', 5, "La Guerra de las Galaxias");
-	console.log(p);
+	$("#iniciar").click(function() {
+			//inicializaciones
+		var p = new Partida('Hugo', 5, "La Guerra de las Galaxias");
+		var f = new Funcionalidades();
+		console.log(p);
 
-	var letraActual = '';
+		var letraActual = '';
+		do {
+			f.pedirLetra(p);
+		} while (p.intentos > 0);
 
-
-
-
+	});
 
 });
