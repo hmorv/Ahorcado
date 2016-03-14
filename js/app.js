@@ -24,7 +24,7 @@ class Partida
 		var final = [];
 		for(var i = 0; i < ff.length; i++) {
 			final[i] = []
-			final[i][0] = ff[i];
+			final[i][0] = ff[i].toLowerCase();
 			final[i][1] = false;
 		}
 		return final;
@@ -75,7 +75,22 @@ class Funcionalidades
 		}
 
 	}
-	comprobarLetra(letra, frase) {
+	actualizarFraseOculta(p) {
+		var st = p.frase;
+		$(".frase").empty();
+		for(var i = 0; i < st.length; i++) {
+			if(st[i][0] == " ") {
+				$(".frase").append("  ");
+				continue;
+			}
+			if(st[i][1] === true) {
+				$(".frase").append(st[i][0]);
+			} else {
+				$(".frase").append(" _ ");
+			}
+		}
+	}
+	comprobarLetra(letra, frase, intentos) {
 		var existe = false;
 
 		for (var i = 0; i < frase.length; i++) {
@@ -85,6 +100,8 @@ class Funcionalidades
 			}
 		}
 		//mostrarCoincidencias
+		if(!existe)
+			intentos--;
 		return existe;
 	}
 	mostrarCoincidencias(frase) {
@@ -98,10 +115,10 @@ class Funcionalidades
 	}
 	pedirLetra(p) {
 		do {
-			var letra = window.prompt("Introduce una letra", "");
+			var letra = window.prompt("Introduce una letra", "").toLowerCase();
 			console.info(letra);
 		} while (letra == "" && letra.length != 1);
-		p.intentos--;
+		//p.intentos--;
 		return letra;
 	}
 }
@@ -117,8 +134,10 @@ $(document).ready(function() {
 		f.mostrarFraseOculta(p);
 		do {
 			letraActual = f.pedirLetra(p);
-			f.comprobarLetra(letraActual, p.frase);
-			f.mostrarCoincidencias(p.frase);
+			f.comprobarLetra(letraActual, p.frase, p.intentos);
+			//f.mostrarCoincidencias(p.frase);
+			f.actualizarFraseOculta(p);
+			console.info(p.intentos);
 		} while (p.intentos > 0);
 
 	});
