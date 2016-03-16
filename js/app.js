@@ -90,18 +90,19 @@ class Funcionalidades
 			}
 		}
 	}
-	comprobarLetra(letra, frase, intentos) {
+	comprobarLetra(letra, obj) {
 		var existe = false;
 
-		for (var i = 0; i < frase.length; i++) {
-			if(frase[i][0] == letra) {
+		for (var i = 0; i < obj.frase.length; i++) {
+			if(obj.frase[i][0] == letra) {
 				existe = true;
-				frase[i][1] = true; 
+				obj.frase[i][1] = true; 
 			}
 		}
 		//mostrarCoincidencias
 		if(!existe)
-			intentos--;
+			obj.intentos--;
+		$(".intentos-restantes").html(obj.intentos);
 		return existe;
 	}
 	mostrarCoincidencias(frase) {
@@ -129,15 +130,17 @@ $(document).ready(function() {
 		var p = new Partida('Hugo', 5, "La Guerra de las Galaxias");
 		var f = new Funcionalidades();
 		console.log(p);
+		$(".frase").empty();
 
 		var letraActual = '';
 		f.mostrarFraseOculta(p);
 		do {
 			letraActual = f.pedirLetra(p);
-			f.comprobarLetra(letraActual, p.frase, p.intentos);
+			f.comprobarLetra(letraActual, p);
 			//f.mostrarCoincidencias(p.frase);
 			f.actualizarFraseOculta(p);
 			console.info(p.intentos);
+			//comprobar si hay valores a false (frase)
 		} while (p.intentos > 0);
 
 	});
