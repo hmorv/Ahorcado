@@ -25,7 +25,10 @@ class Partida
 		for(var i = 0; i < ff.length; i++) {
 			final[i] = []
 			final[i][0] = ff[i].toLowerCase();
-			final[i][1] = false;
+			if(ff[i] == " ")
+				final[i][1] = true;
+			else
+				final[i][1] = false;
 		}
 		return final;
 	}
@@ -109,8 +112,7 @@ class Funcionalidades
 		for(var i = 0; i < frase.length; i++) {
 			if(frase[i][1] == true) {
 				//mostramos la letra
-				console.info(frase[i][0]);
-				
+				console.info(frase[i][0]);		
 			}
 		}
 	}
@@ -122,6 +124,16 @@ class Funcionalidades
 		//p.intentos--;
 		return letra;
 	}
+	comprobarResuelto(frase) {
+		var fin = true;
+		for(var i = 0; i < frase.length; i++) {
+			if(frase[i][1] === false) {
+				fin = false;
+				break;
+			}
+		}
+		return fin;
+	}
 }
 $(document).ready(function() {
 
@@ -131,6 +143,7 @@ $(document).ready(function() {
 		var f = new Funcionalidades();
 		console.log(p);
 		$(".frase").empty();
+		$(".mensajes").empty();
 
 		var letraActual = '';
 		f.mostrarFraseOculta(p);
@@ -141,7 +154,16 @@ $(document).ready(function() {
 			f.actualizarFraseOculta(p);
 			console.info(p.intentos);
 			//comprobar si hay valores a false (frase)
+			if(f.comprobarResuelto(p.frase))
+				break;
 		} while (p.intentos > 0);
+		if(p.intentos == 0) {
+			//fin, no exito
+			$(".mensajes").html("Vaya, no has resuelto el juego...");
+		} else {
+			//fin, exito
+			$(".mensajes").html("Enhorabuena, has resuelto el juego!");
+		}
 
 	});
 
