@@ -2,21 +2,9 @@
 */
 
 "use strict";
-// class Frases
-// {
-// 	constructor(listado) {
-// 		this._listado = listado;
-// 	}
-// 	get frase() {
 
-// 	}
-	
-// }
 class Partida
 {
-	
-
-
 	//nombreJugador: "";
 	constructor(nombreJugador, intentos, frase) {
 		function insertarFrase(f) {
