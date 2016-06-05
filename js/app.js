@@ -132,14 +132,17 @@ $(document).ready(function() {
 
 		var letraActual = '';
 		f.mostrarFraseOculta(p);
-		do {
-			letraActual = f.pedirLetra(p);
-			f.comprobarLetra(letraActual, p.frase, p.intentos);
-			//f.mostrarCoincidencias(p.frase);
-			f.actualizarFraseOculta(p);
-			console.info(p.intentos);
-		} while (p.intentos > 0);
-
+		try {
+			do {
+				letraActual = f.pedirLetra(p);
+				f.comprobarLetra(letraActual, p.frase, p.intentos);
+				//f.mostrarCoincidencias(p.frase);
+				f.actualizarFraseOculta(p);
+				console.info(p.intentos);
+			} while (p.intentos > 0);
+		} catch(e) {
+			console.log("Error: " + e);
+		}
 	});
 
 });
